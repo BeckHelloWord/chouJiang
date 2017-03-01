@@ -81,6 +81,7 @@
     </div>
     <script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="js/jquery.rotate.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
     <script>
         $(function () {
             var $btn = $('.playbtn');
@@ -153,6 +154,14 @@
                 $jl.rotate({
                     angle: 0,
                     duration: 4000, //旋转时间
+                    step: function () {
+
+                    },
+                    easing: function (x, t, b, c, d) {
+                        // 先慢后后快再慢
+                        if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+                        return -c / 2 * ((--t) * (t - 2) - 1) + b;
+                    },
                     animateTo: 1440 - angle, //让它根据得出来的结果加上1440度旋转
                     callback: function () {
                         isture = false; // 标志为 执行完毕
